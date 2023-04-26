@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 public class UserCreateRequestDto {
-    @NotBlank
+    @NotBlank(message = "Username can't be blank")
     private String username;
-    @NotBlank
+    @NotBlank(message = "Email can't be blank")
     private String email;
 }
