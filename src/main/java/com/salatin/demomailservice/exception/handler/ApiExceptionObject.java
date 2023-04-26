@@ -1,4 +1,4 @@
-package com.salatin.demomailservice.exception;
+package com.salatin.demomailservice.exception.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

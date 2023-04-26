@@ -1,5 +1,8 @@
-package com.salatin.demomailservice.exception;
+package com.salatin.demomailservice.exception.handler;
 
+import com.salatin.demomailservice.exception.EmailAlreadyExistsException;
+import com.salatin.demomailservice.exception.UserNotFoundException;
+import com.salatin.demomailservice.exception.UsernameAlreadyExistsException;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
