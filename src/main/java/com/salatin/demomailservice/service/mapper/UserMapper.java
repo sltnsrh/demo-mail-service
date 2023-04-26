@@ -15,7 +15,6 @@ public interface UserMapper {
     @Mapping(target = "createdOn", expression = "java(getCurrentTime())")
     User toModel(UserCreateRequestDto requestDto);
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdOn", ignore = true)
     User toModel(UserUpdateRequestDto requestDto);
 

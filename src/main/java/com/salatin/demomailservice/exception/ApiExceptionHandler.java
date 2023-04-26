@@ -30,7 +30,15 @@ public class ApiExceptionHandler {
         String errorMessages = e.getBindingResult().getAllErrors().stream()
             .map(DefaultMessageSourceResolvable::getDefaultMessage)
             .collect(Collectors.joining(", "));
+
         return new ResponseEntity<>(getApiExceptionObject(errorMessages, status), status);
+    }
+
+    @ExceptionHandler(value = UserNotFoundException.class)
+    public ResponseEntity<ApiExceptionObject> handleResourceNotFoundException(RuntimeException e) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+
+        return new ResponseEntity<>(getApiExceptionObject(e.getMessage(), status), status);
     }
 
     private ApiExceptionObject getApiExceptionObject(String message, HttpStatus status) {
