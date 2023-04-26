@@ -1,6 +1,6 @@
 package com.salatin.demomailservice.controller;
 
-import com.salatin.demomailservice.UserService;
+import com.salatin.demomailservice.service.UserService;
 import com.salatin.demomailservice.model.dto.request.UserCreateRequestDto;
 import com.salatin.demomailservice.model.dto.response.UserResponseDto;
 import jakarta.validation.Valid;

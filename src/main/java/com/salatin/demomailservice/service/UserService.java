@@ -1,4 +1,4 @@
-package com.salatin.demomailservice;
+package com.salatin.demomailservice.service;
 
 import com.salatin.demomailservice.model.User;
 

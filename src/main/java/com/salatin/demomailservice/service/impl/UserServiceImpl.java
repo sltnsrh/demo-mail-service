@@ -1,6 +1,6 @@
-package com.salatin.demomailservice.impl;
+package com.salatin.demomailservice.service.impl;
 
-import com.salatin.demomailservice.UserService;
+import com.salatin.demomailservice.service.UserService;
 import com.salatin.demomailservice.model.User;
 import com.salatin.demomailservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
