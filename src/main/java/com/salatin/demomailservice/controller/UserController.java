@@ -1,9 +1,9 @@
 package com.salatin.demomailservice.controller;
 
 import com.salatin.demomailservice.model.User;
-import com.salatin.demomailservice.service.UserService;
 import com.salatin.demomailservice.model.dto.request.UserCreateRequestDto;
 import com.salatin.demomailservice.model.dto.response.UserResponseDto;
+import com.salatin.demomailservice.service.AuthService;
 import com.salatin.demomailservice.service.mapper.UserMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserService userService;
+    private final AuthService authService;
     private final UserMapper userMapper;
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> create(
+    public ResponseEntity<UserResponseDto> register(
         @RequestBody @Valid UserCreateRequestDto requestDto) {
         User user = userMapper.toModel(requestDto);
 
-        return new ResponseEntity<>(userMapper.toDto(userService.save(user)), HttpStatus.CREATED);
+        return new ResponseEntity<>(userMapper.toDto(authService.register(user)), HttpStatus.CREATED);
     }
 }
