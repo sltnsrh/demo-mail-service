@@ -44,18 +44,22 @@ public class UserServiceImpl implements UserService {
     }
 
     private void checkIfUsernameExists(User user) {
-        Optional<User> userOptional = userRepository.findByUsername(user.getUsername());
+        var userOptional = userRepository.findByUsername(user.getUsername());
+        var usernameBelongsAnotherUser =
+            userOptional.isPresent() && userOptional.get().getId() != user.getId();
 
-        if (userOptional.isPresent() && userOptional.get().getId() != user.getId()) {
+        if (usernameBelongsAnotherUser) {
             throw new UsernameAlreadyExistsException(
                 String.format("User with username: %s is already exists", user.getUsername()));
         }
     }
 
     private void checkIfEmailExists(User user) {
-        Optional<User> userOptional = userRepository.findByEmail(user.getEmail());
+        var userOptional = userRepository.findByEmail(user.getEmail());
+        var emailBelongsAnotherUser =
+            userOptional.isPresent() && userOptional.get().getId() != user.getId();
 
-        if (userOptional.isPresent() && userOptional.get().getId() != user.getId()) {
+        if (emailBelongsAnotherUser) {
             throw new EmailAlreadyExistsException(
                 String.format("User with email: %s is already exists", user.getEmail())
             );
