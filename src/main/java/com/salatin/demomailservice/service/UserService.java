@@ -1,6 +1,8 @@
 package com.salatin.demomailservice.service;
 
 import com.salatin.demomailservice.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface UserService {
 
@@ -9,4 +11,6 @@ public interface UserService {
     User update(User user);
 
     void delete(Integer id);
+
+    Page<User> findAll(PageRequest pageRequest);
 }

@@ -7,6 +7,8 @@ import com.salatin.demomailservice.model.User;
 import com.salatin.demomailservice.repository.UserRepository;
 import com.salatin.demomailservice.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +44,12 @@ public class UserServiceImpl implements UserService {
         checkIfUserExists(id);
 
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<User> findAll(PageRequest pageRequest) {
+
+        return userRepository.findAll(pageRequest);
     }
 
     private void checkIfUserExists(Integer id) {
