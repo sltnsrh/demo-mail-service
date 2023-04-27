@@ -3,6 +3,7 @@ package com.salatin.demomailservice.exception.handler;
 import com.salatin.demomailservice.exception.EmailAlreadyExistsException;
 import com.salatin.demomailservice.exception.UserNotFoundException;
 import com.salatin.demomailservice.exception.UsernameAlreadyExistsException;
+import jakarta.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -21,6 +22,16 @@ public class ApiExceptionHandler {
     })
     public ResponseEntity<ApiExceptionObject> handleConflictException(RuntimeException e) {
         HttpStatus status = HttpStatus.CONFLICT;
+
+        return new ResponseEntity<>(getApiExceptionObject(e.getMessage(), status), status);
+    }
+
+    @ExceptionHandler(value = {
+        ValidationException.class
+    })
+    public ResponseEntity<ApiExceptionObject> handleValidationConflictException(
+        RuntimeException e) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
 
         return new ResponseEntity<>(getApiExceptionObject(e.getMessage(), status), status);
     }
