@@ -6,7 +6,6 @@ import com.salatin.demomailservice.exception.UsernameAlreadyExistsException;
 import com.salatin.demomailservice.model.User;
 import com.salatin.demomailservice.repository.UserRepository;
 import com.salatin.demomailservice.service.UserService;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,20 +26,29 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User update(User user) {
-        Optional<User> userOptional = userRepository.findById(user.getId());
-
-        if (userOptional.isEmpty()) {
-            throw new UserNotFoundException("Can't find a user with id: " + user.getId());
-        }
-
+        checkIfUserExists(user.getId());
         checkIfUsernameExists(user);
         checkIfEmailExists(user);
 
-        User userToUpdate = userOptional.get();
+        User userToUpdate = userRepository.findById(user.getId()).orElseThrow();
         userToUpdate.setUsername(user.getUsername());
         userToUpdate.setEmail(user.getEmail());
 
         return userRepository.save(userToUpdate);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        checkIfUserExists(id);
+
+        userRepository.deleteById(id);
+    }
+
+    private void checkIfUserExists(Integer id) {
+
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException("Can't find a user with id: " + id);
+        }
     }
 
     private void checkIfUsernameExists(User user) {
