@@ -52,6 +52,19 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll(pageRequest);
     }
 
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsernameIgnoreCase(username.trim())
+            .orElseThrow(() ->
+                new UserNotFoundException("Can't find a user with username: " + username));
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmailIgnoreCase(email.trim()).orElseThrow(() ->
+            new UserNotFoundException("Can't find a user with email: " + email));
+    }
+
     private void checkIfUserExists(Integer id) {
 
         if (!userRepository.existsById(id)) {
@@ -60,7 +73,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void checkIfUsernameExists(User user) {
-        var userOptional = userRepository.findByUsername(user.getUsername());
+        var userOptional = userRepository.findByUsernameIgnoreCase(user.getUsername());
         var usernameBelongsAnotherUser =
             userOptional.isPresent() && userOptional.get().getId() != user.getId();
 
@@ -71,7 +84,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void checkIfEmailExists(User user) {
-        var userOptional = userRepository.findByEmail(user.getEmail());
+        var userOptional = userRepository.findByEmailIgnoreCase(user.getEmail());
         var emailBelongsAnotherUser =
             userOptional.isPresent() && userOptional.get().getId() != user.getId();
 

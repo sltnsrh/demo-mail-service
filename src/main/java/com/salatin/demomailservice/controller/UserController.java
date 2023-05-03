@@ -7,6 +7,7 @@ import com.salatin.demomailservice.model.dto.response.UserResponseDto;
 import com.salatin.demomailservice.service.UserService;
 import com.salatin.demomailservice.service.mapper.UserMapper;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
@@ -72,6 +73,26 @@ public class UserController {
 
         return new ResponseEntity<>(
             userMapper.toPageDto(userService.findAll(pageRequest)),
+            HttpStatus.OK);
+    }
+
+    @GetMapping(params = "username")
+    public ResponseEntity<UserResponseDto> findByUsername(
+        @RequestParam @NotBlank String username
+    ) {
+
+        return new ResponseEntity<>(
+            userMapper.toDto(userService.findByUsername(username)),
+            HttpStatus.OK);
+    }
+
+    @GetMapping(params = "email")
+    public ResponseEntity<UserResponseDto> findByEmail(
+        @RequestParam @NotBlank String email
+    ) {
+
+        return new ResponseEntity<>(
+            userMapper.toDto(userService.findByEmail(email)),
             HttpStatus.OK);
     }
 }

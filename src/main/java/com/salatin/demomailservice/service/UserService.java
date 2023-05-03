@@ -13,4 +13,8 @@ public interface UserService {
     void delete(Integer id);
 
     Page<User> findAll(PageRequest pageRequest);
+
+    User findByUsername(String username);
+
+    User findByEmail(String email);
 }

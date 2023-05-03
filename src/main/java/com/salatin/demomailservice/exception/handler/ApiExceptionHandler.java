@@ -29,7 +29,8 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(value = {
         ValidationException.class,
-        PropertyReferenceException.class
+        PropertyReferenceException.class,
+        IllegalStateException.class
     })
     public ResponseEntity<ApiExceptionObject> handleValidationConflictException(
         RuntimeException e) {
