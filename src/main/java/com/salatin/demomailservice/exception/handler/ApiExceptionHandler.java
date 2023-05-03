@@ -7,6 +7,7 @@ import jakarta.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,7 +28,8 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(value = {
-        ValidationException.class
+        ValidationException.class,
+        PropertyReferenceException.class
     })
     public ResponseEntity<ApiExceptionObject> handleValidationConflictException(
         RuntimeException e) {
