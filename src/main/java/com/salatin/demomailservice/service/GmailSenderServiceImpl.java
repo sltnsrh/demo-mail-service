@@ -1,5 +1,6 @@
 package com.salatin.demomailservice.service;
 
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Log4j2
 public class GmailSenderServiceImpl implements MailSenderService {
+    private static final String NO_SUBJECT = "No subject";
+
     private final JavaMailSender mailSender;
 
     @Value("${spring.mail.username}")
@@ -24,7 +27,7 @@ public class GmailSenderServiceImpl implements MailSenderService {
         message.setFrom(from);
         message.setTo(to);
         message.setText(body);
-        message.setSubject(subject);
+        message.setSubject(Objects.requireNonNullElse(subject, NO_SUBJECT));
 
         mailSender.send(message);
 
