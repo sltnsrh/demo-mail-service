@@ -1,5 +1,6 @@
-package com.salatin.demomailservice.service;
+package com.salatin.demomailservice.service.impl;
 
+import com.salatin.demomailservice.service.MailSenderService;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
