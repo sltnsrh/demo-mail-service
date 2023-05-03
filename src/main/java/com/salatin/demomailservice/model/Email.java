@@ -7,9 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "emails")
+@Getter
+@Setter
 public class Email {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
