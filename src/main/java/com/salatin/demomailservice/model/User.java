@@ -23,6 +23,6 @@ public class User {
     private String username;
     @Column(name = "email", unique = true)
     private String email;
-    @Column(name = "create_on", updatable = false)
+    @Column(name = "created_on", updatable = false)
     private LocalDateTime createdOn;
 }
