@@ -40,7 +40,8 @@ public class UserController {
         @RequestBody @Valid UserCreateRequestDto requestDto) {
         User user = userMapper.toModel(requestDto);
 
-        return new ResponseEntity<>(userMapper.toDto(userService.create(user)), HttpStatus.CREATED);
+        return new ResponseEntity<>(userMapper.toDto(userService.create(user)),
+            HttpStatus.CREATED);
     }
 
     @PutMapping
@@ -48,14 +49,14 @@ public class UserController {
         @RequestBody @Valid UserUpdateRequestDto requestDto) {
         User user = userMapper.toModel(requestDto);
 
-        return new ResponseEntity<>(userMapper.toDto(userService.update(user)), HttpStatus.OK);
+        return ResponseEntity.ok(userMapper.toDto(userService.update(user)));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable @Positive Integer id) {
         userService.delete(id);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
@@ -71,9 +72,7 @@ public class UserController {
             Sort.by(Sort.Direction.valueOf(sortDirection.toUpperCase()), sortByField)
         );
 
-        return new ResponseEntity<>(
-            userMapper.toPageDto(userService.findAll(pageRequest)),
-            HttpStatus.OK);
+        return ResponseEntity.ok(userMapper.toPageDto(userService.findAll(pageRequest)));
     }
 
     @GetMapping(params = "username")
@@ -81,9 +80,7 @@ public class UserController {
         @RequestParam @NotBlank String username
     ) {
 
-        return new ResponseEntity<>(
-            userMapper.toDto(userService.findByUsername(username)),
-            HttpStatus.OK);
+        return ResponseEntity.ok(userMapper.toDto(userService.findByUsername(username)));
     }
 
     @GetMapping(params = "email")
@@ -91,8 +88,6 @@ public class UserController {
         @RequestParam @NotBlank String email
     ) {
 
-        return new ResponseEntity<>(
-            userMapper.toDto(userService.findByEmail(email)),
-            HttpStatus.OK);
+        return ResponseEntity.ok(userMapper.toDto(userService.findByEmail(email)));
     }
 }
