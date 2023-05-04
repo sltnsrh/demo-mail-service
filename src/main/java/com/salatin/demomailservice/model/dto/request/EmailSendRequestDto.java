@@ -1,13 +1,12 @@
 package com.salatin.demomailservice.model.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 
 @Getter
 public class EmailSendRequestDto {
+    @Positive
+    private Integer userId;
     private String subject;
-    @NotBlank(message = "Email receiver can't be empty")
-    private String to;
-    @NotBlank(message = "An email body is required")
     private String body;
 }
