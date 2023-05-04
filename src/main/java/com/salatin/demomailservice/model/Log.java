@@ -22,7 +22,7 @@ import lombok.Setter;
 public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false, updatable=false)
     private User user;
