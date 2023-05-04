@@ -1,7 +1,9 @@
 package com.salatin.demomailservice.controller;
 
+import com.salatin.demomailservice.service.MailingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,10 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/mail")
 @RequiredArgsConstructor
 public class MailController {
+    private final MailingService mailingService;
 
     @PostMapping
-    public ResponseEntity<Void> send() {
-
+    @RequestMapping("/send/user/{userId}")
+    public ResponseEntity<Void> sendByUserId(@PathVariable Integer userId) {
+        mailingService.sendGreetingByUserId(userId);
 
         return ResponseEntity.ok().build();
     }
