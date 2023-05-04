@@ -4,7 +4,6 @@ import com.salatin.demomailservice.model.dto.request.EmailSendRequestDto;
 import com.salatin.demomailservice.service.MailSenderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +20,6 @@ public class MailController {
     public ResponseEntity<Void> send(@RequestBody @Valid EmailSendRequestDto requestDto) {
         mailSenderService.send(requestDto.getTo(), requestDto.getSubject(), requestDto.getBody());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 }
