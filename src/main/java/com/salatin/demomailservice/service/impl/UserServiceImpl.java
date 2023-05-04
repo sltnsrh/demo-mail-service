@@ -40,6 +40,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findById(Integer id) {
+        return userRepository.findById(id).orElseThrow(() ->
+            new UserNotFoundException("Can't find a user with id: " + id));
+    }
+
+    @Override
     public void delete(Integer id) {
         checkIfUserExists(id);
 

@@ -10,6 +10,7 @@ public interface UserService {
 
     User update(User user);
 
+    User findById(Integer id);
     void delete(Integer id);
 
     Page<User> findAll(PageRequest pageRequest);
