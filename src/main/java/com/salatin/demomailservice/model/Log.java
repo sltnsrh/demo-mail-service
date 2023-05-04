@@ -14,13 +14,11 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "logs")
 @Getter
 @Setter
-@ToString
 public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +32,13 @@ public class Log {
     @Column(name = "created_on", nullable = false, updatable = false)
     private LocalDateTime createdOn;
 
+    @Override
+    public String toString() {
+        return "Log{"
+            + "id=" + id
+            + ", userId=" + user.getId()
+            + ", type=" + type
+            + ", createdOn=" + createdOn
+            + '}';
+    }
 }
