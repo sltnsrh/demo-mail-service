@@ -19,6 +19,7 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String subject;
+    @Column(name = "to_mail")
     private String to;
     private String body;
     private String username;
