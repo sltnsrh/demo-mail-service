@@ -9,17 +9,19 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "crons")
 @Getter
 @Setter
+@ToString
 public class Cron {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, unique = true)
     private int id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String expression;
     @Column(name = "created_on", updatable = false, nullable = false)
     private LocalDateTime createdOn;

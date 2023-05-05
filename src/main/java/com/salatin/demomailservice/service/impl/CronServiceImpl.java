@@ -3,21 +3,36 @@ package com.salatin.demomailservice.service.impl;
 import com.salatin.demomailservice.model.Cron;
 import com.salatin.demomailservice.repository.CronRepository;
 import com.salatin.demomailservice.service.CronService;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class CronServiceImpl implements CronService {
     private final CronRepository cronRepository;
 
     @Override
     public Cron create(Cron cron) {
+        Cron savedCron;
 
-        return cronRepository.save(cron);
+        try {
+            savedCron = cronRepository.save(cron);
+        } catch (DataIntegrityViolationException e) {
+            throw new EntityExistsException(
+                String.format("Cron with the same expression: %s already exists",
+                    cron.getExpression()));
+        }
+
+        log.info("Cron was successfully created: {}", cron);
+
+        return savedCron;
     }
 
     @Override
