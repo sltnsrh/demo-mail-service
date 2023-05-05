@@ -1,10 +1,9 @@
 package com.salatin.demomailservice.service.impl;
 
-import com.salatin.demomailservice.exception.EmailAlreadyExistsException;
-import com.salatin.demomailservice.exception.UsernameAlreadyExistsException;
 import com.salatin.demomailservice.model.User;
 import com.salatin.demomailservice.repository.UserRepository;
 import com.salatin.demomailservice.service.UserService;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -84,7 +83,7 @@ public class UserServiceImpl implements UserService {
             userOptional.isPresent() && userOptional.get().getId() != user.getId();
 
         if (usernameBelongsAnotherUser) {
-            throw new UsernameAlreadyExistsException(
+            throw new EntityExistsException(
                 String.format("User with username: %s is already exists", user.getUsername()));
         }
     }
@@ -95,7 +94,7 @@ public class UserServiceImpl implements UserService {
             userOptional.isPresent() && userOptional.get().getId() != user.getId();
 
         if (emailBelongsAnotherUser) {
-            throw new EmailAlreadyExistsException(
+            throw new EntityExistsException(
                 String.format("User with email: %s is already exists", user.getEmail())
             );
         }

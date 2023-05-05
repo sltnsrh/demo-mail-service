@@ -1,7 +1,6 @@
 package com.salatin.demomailservice.exception.handler;
 
-import com.salatin.demomailservice.exception.EmailAlreadyExistsException;
-import com.salatin.demomailservice.exception.UsernameAlreadyExistsException;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
 import java.time.LocalDateTime;
@@ -17,10 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(value = {
-        UsernameAlreadyExistsException.class,
-        EmailAlreadyExistsException.class
-    })
+    @ExceptionHandler(value = EntityExistsException.class)
     public ResponseEntity<ApiExceptionObject> handleConflictException(RuntimeException e) {
         HttpStatus status = HttpStatus.CONFLICT;
 
