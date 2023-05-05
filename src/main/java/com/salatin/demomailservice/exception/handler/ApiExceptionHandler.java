@@ -1,8 +1,8 @@
 package com.salatin.demomailservice.exception.handler;
 
 import com.salatin.demomailservice.exception.EmailAlreadyExistsException;
-import com.salatin.demomailservice.exception.UserNotFoundException;
 import com.salatin.demomailservice.exception.UsernameAlreadyExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
@@ -51,7 +51,7 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(getApiExceptionObject(errorMessages, status), status);
     }
 
-    @ExceptionHandler(value = UserNotFoundException.class)
+    @ExceptionHandler(value = EntityNotFoundException.class)
     public ResponseEntity<ApiExceptionObject> handleResourceNotFoundException(RuntimeException e) {
         HttpStatus status = HttpStatus.NOT_FOUND;
 

@@ -1,11 +1,11 @@
 package com.salatin.demomailservice.service.impl;
 
 import com.salatin.demomailservice.exception.EmailAlreadyExistsException;
-import com.salatin.demomailservice.exception.UserNotFoundException;
 import com.salatin.demomailservice.exception.UsernameAlreadyExistsException;
 import com.salatin.demomailservice.model.User;
 import com.salatin.demomailservice.repository.UserRepository;
 import com.salatin.demomailservice.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Integer id) {
         return userRepository.findById(id).orElseThrow(() ->
-            new UserNotFoundException("Can't find a user with id: " + id));
+            new EntityNotFoundException("Can't find a user with id: " + id));
     }
 
     @Override
@@ -62,19 +62,19 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsernameIgnoreCase(username.trim())
             .orElseThrow(() ->
-                new UserNotFoundException("Can't find a user with username: " + username));
+                new EntityNotFoundException("Can't find a user with username: " + username));
     }
 
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmailIgnoreCase(email.trim()).orElseThrow(() ->
-            new UserNotFoundException("Can't find a user with email: " + email));
+            new EntityNotFoundException("Can't find a user with email: " + email));
     }
 
     private void checkIfUserExists(Integer id) {
 
         if (!userRepository.existsById(id)) {
-            throw new UserNotFoundException("Can't find a user with id: " + id);
+            throw new EntityNotFoundException("Can't find a user with id: " + id);
         }
     }
 
