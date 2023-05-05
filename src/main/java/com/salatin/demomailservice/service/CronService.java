@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 
 public interface CronService {
 
-    Cron create(Cron cron);
+    Cron save(Cron cron);
 
     Cron findById(Integer id);
 

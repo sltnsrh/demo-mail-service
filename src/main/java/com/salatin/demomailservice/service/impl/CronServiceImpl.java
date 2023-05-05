@@ -19,7 +19,7 @@ public class CronServiceImpl implements CronService {
     private final CronRepository cronRepository;
 
     @Override
-    public Cron create(Cron cron) {
+    public Cron save(Cron cron) {
         Cron savedCron;
 
         try {
@@ -30,7 +30,7 @@ public class CronServiceImpl implements CronService {
                     cron.getExpression()));
         }
 
-        log.info("Cron was successfully created: {}", cron);
+        log.info("Cron was successfully saved: {}", cron);
 
         return savedCron;
     }
@@ -50,16 +50,16 @@ public class CronServiceImpl implements CronService {
 
     @Override
     public Cron update(Cron cron) {
-        var cronToUpdate = this.findById(cron.getId());
+        var cronToUpdate = findById(cron.getId());
 
         cronToUpdate.setExpression(cron.getExpression());
 
-        return cronRepository.save(cronToUpdate);
+        return this.save(cronToUpdate);
     }
 
     @Override
     public void delete(Integer id) {
-        var cron = this.findById(id);
+        var cron = findById(id);
 
         cronRepository.delete(cron);
     }

@@ -40,7 +40,7 @@ public class CronController {
         var cron = cronMapper.toModel(requestDto);
 
         return new ResponseEntity<>(
-            cronMapper.toDto(cronService.create(cron)),
+            cronMapper.toDto(cronService.save(cron)),
             HttpStatus.CREATED
         );
     }
