@@ -5,6 +5,7 @@ import com.salatin.demomailservice.repository.UserRepository;
 import com.salatin.demomailservice.service.UserService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -56,6 +57,12 @@ public class UserServiceImpl implements UserService {
     public Page<User> findAll(PageRequest pageRequest) {
 
         return userRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public List<User> findAll() {
+
+        return userRepository.findAll();
     }
 
     @Override
