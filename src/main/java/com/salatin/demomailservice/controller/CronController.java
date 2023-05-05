@@ -6,6 +6,7 @@ import com.salatin.demomailservice.model.dto.response.CronResponseDto;
 import com.salatin.demomailservice.service.CronService;
 import com.salatin.demomailservice.service.mapper.CronMapper;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +57,9 @@ public class CronController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable @Positive Integer id) {
+    public ResponseEntity<Void> delete(
+        @PathVariable @Positive @NotBlank Integer id
+    ) {
         cronService.delete(id);
 
         return ResponseEntity.noContent().build();
