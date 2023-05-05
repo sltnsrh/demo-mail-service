@@ -27,11 +27,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User update(User user) {
-        checkIfUserExists(user.getId());
+        var userToUpdate = this.findById(user.getId());
+
         checkIfUsernameExists(user);
         checkIfEmailExists(user);
 
-        User userToUpdate = userRepository.findById(user.getId()).orElseThrow();
         userToUpdate.setUsername(user.getUsername());
         userToUpdate.setEmail(user.getEmail());
 
@@ -40,15 +40,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Integer id) {
+
         return userRepository.findById(id).orElseThrow(() ->
             new EntityNotFoundException("Can't find a user with id: " + id));
     }
 
     @Override
     public void delete(Integer id) {
-        checkIfUserExists(id);
+        var userToDelete = this.findById(id);
 
-        userRepository.deleteById(id);
+        userRepository.delete(userToDelete);
     }
 
     @Override
@@ -59,6 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
+
         return userRepository.findByUsernameIgnoreCase(username.trim())
             .orElseThrow(() ->
                 new EntityNotFoundException("Can't find a user with username: " + username));
@@ -66,15 +68,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
+
         return userRepository.findByEmailIgnoreCase(email.trim()).orElseThrow(() ->
             new EntityNotFoundException("Can't find a user with email: " + email));
-    }
-
-    private void checkIfUserExists(Integer id) {
-
-        if (!userRepository.existsById(id)) {
-            throw new EntityNotFoundException("Can't find a user with id: " + id);
-        }
     }
 
     private void checkIfUsernameExists(User user) {
