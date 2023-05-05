@@ -5,7 +5,6 @@ import com.salatin.demomailservice.repository.CronRepository;
 import com.salatin.demomailservice.service.CronService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -36,7 +35,7 @@ public class CronServiceImpl implements CronService {
 
     @Override
     public Cron update(Cron cron) {
-        var cronToUpdate = findById(cron.getId());
+        var cronToUpdate = this.findById(cron.getId());
 
         cronToUpdate.setExpression(cron.getExpression());
 
@@ -45,7 +44,7 @@ public class CronServiceImpl implements CronService {
 
     @Override
     public void delete(Integer id) {
-        var cron = findById(id);
+        var cron = this.findById(id);
 
         cronRepository.delete(cron);
     }
