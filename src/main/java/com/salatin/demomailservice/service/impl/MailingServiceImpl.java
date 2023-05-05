@@ -17,33 +17,43 @@ import org.springframework.stereotype.Service;
 @Log4j2
 public class MailingServiceImpl implements MailingService {
     private static final String SUBJECT_GREETING = "Greetings!";
-    public static final String USERNAME_TITLE = "Username: ";
-    public static final String DATE_TIME_CREATION_TITLE = "Creation date and time: ";
+    private static final String USERNAME_TITLE = "Username: ";
+    private static final String DATE_TIME_CREATION_TITLE = "Creation date and time: ";
 
     private final MailSenderService mailSenderService;
     private final UserService userService;
     private final LogService logService;
 
     @Override
-    public void sendGreetingByUserId(Integer userId) {
+    public void sendRestEmailToUser(Integer userId) {
         var user = userService.findById(userId);
         var createdOn = LocalDateTime.now();
         var body = createBody(user, createdOn.toString());
 
         mailSenderService.send(user.getEmail(), SUBJECT_GREETING, body);
-        createLog(user, createdOn);
+        createLog(user, createdOn, EmailType.REST);
+    }
+
+    @Override
+    public void sendCronEmailToUser(User user) {
+        var createdOn = LocalDateTime.now();
+        var body = createBody(user, createdOn.toString());
+
+        mailSenderService.send(user.getEmail(), SUBJECT_GREETING, body);
+        createLog(user, createdOn, EmailType.CRON);
     }
 
     private String createBody(User user, String createdOn) {
+
         return USERNAME_TITLE + user.getUsername()
             + System.lineSeparator()
             + DATE_TIME_CREATION_TITLE + createdOn;
     }
 
-    private void createLog(User user, LocalDateTime createdOn) {
+    private void createLog(User user, LocalDateTime createdOn, EmailType emailType) {
         Log logToSave = new Log();
         logToSave.setUser(user);
-        logToSave.setType(EmailType.REST);
+        logToSave.setType(emailType);
         logToSave.setCreatedOn(createdOn);
 
         var savedLog = logService.save(logToSave);
