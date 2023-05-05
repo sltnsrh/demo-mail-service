@@ -4,7 +4,6 @@ import com.salatin.demomailservice.model.Cron;
 import com.salatin.demomailservice.model.dto.request.CronCreateRequestDto;
 import com.salatin.demomailservice.model.dto.request.CronUpdateRequestDto;
 import com.salatin.demomailservice.model.dto.response.CronResponseDto;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
@@ -13,10 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 @Mapper(componentModel = "spring")
-public interface CronMapper {
+public interface CronMapper extends DateTimeProvider {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdOn", expression = "java(setCurrentTime())")
+    @Mapping(target = "createdOn", expression = "java(getCurrentDateTime())")
     Cron toModel(CronCreateRequestDto dto);
 
     @Mapping(target = "createdOn", ignore = true)
@@ -29,9 +28,5 @@ public interface CronMapper {
             .map(this::toDto)
             .collect(Collectors.toList());
         return new PageImpl<>(cronDtoList, cronPage.getPageable(), cronPage.getTotalElements());
-    }
-
-    default LocalDateTime setCurrentTime() {
-        return LocalDateTime.now();
     }
 }
