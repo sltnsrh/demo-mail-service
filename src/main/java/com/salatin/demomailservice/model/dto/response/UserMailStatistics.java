@@ -1,6 +1,5 @@
 package com.salatin.demomailservice.model.dto.response;
 
-import com.salatin.demomailservice.model.dto.Count;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,4 +11,6 @@ public class UserMailStatistics {
     private Count count;
     private String first;
     private String last;
+
+    public record Count(Integer rest, Integer cron) {}
 }
