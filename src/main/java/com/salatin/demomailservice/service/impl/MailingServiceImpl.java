@@ -25,7 +25,7 @@ public class MailingServiceImpl implements MailingService {
     private final LogService logService;
 
     @Override
-    public void sendRestEmailToUser(Integer userId) {
+    public void sendRestEmailToUserById(Integer userId) {
         var user = userService.findById(userId);
         var createdOn = LocalDateTime.now();
         var body = createBody(user, createdOn.toString());

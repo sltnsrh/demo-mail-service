@@ -4,7 +4,7 @@ import com.salatin.demomailservice.model.User;
 
 public interface MailingService {
 
-    void sendRestEmailToUser(Integer userId);
+    void sendRestEmailToUserById(Integer userId);
 
     void sendCronEmailToUser(User user);
 }

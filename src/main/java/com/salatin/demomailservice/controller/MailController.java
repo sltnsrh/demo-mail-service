@@ -19,7 +19,7 @@ public class MailController {
     @PostMapping
     @RequestMapping("/send/user/{userId}")
     public ResponseEntity<Void> sendByUserId(@PathVariable Integer userId) {
-        mailingService.sendRestEmailToUser(userId);
+        mailingService.sendRestEmailToUserById(userId);
 
         return ResponseEntity.ok().build();
     }
