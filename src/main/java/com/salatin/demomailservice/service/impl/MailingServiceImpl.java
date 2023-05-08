@@ -57,6 +57,6 @@ public class MailingServiceImpl implements MailingService {
         logToSave.setCreatedOn(createdOn);
 
         var savedLog = logService.save(logToSave);
-        log.info(() -> "Log was successfully created: " + savedLog);
+        log.info("Log was successfully created: {}", savedLog);
     }
 }
