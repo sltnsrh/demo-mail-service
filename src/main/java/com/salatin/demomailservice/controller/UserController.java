@@ -3,13 +3,16 @@ package com.salatin.demomailservice.controller;
 import com.salatin.demomailservice.model.User;
 import com.salatin.demomailservice.model.dto.request.UserCreateRequestDto;
 import com.salatin.demomailservice.model.dto.request.UserUpdateRequestDto;
+import com.salatin.demomailservice.model.dto.response.UserMailStats;
 import com.salatin.demomailservice.model.dto.response.UserResponseDto;
 import com.salatin.demomailservice.service.UserService;
+import com.salatin.demomailservice.service.UserStatsService;
 import com.salatin.demomailservice.service.mapper.UserMapper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserMapper userMapper;
     private final UserService userService;
+    private final UserStatsService statsService;
 
     @PostMapping
     public ResponseEntity<UserResponseDto> create(
@@ -91,5 +95,14 @@ public class UserController {
     ) {
 
         return ResponseEntity.ok(userMapper.toDto(userService.findByEmail(email)));
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<List<UserMailStats>> showStats(
+        @RequestParam(defaultValue = "0") @PositiveOrZero int page,
+        @RequestParam(defaultValue = "10") @PositiveOrZero int size
+    ) {
+
+        return ResponseEntity.ok(statsService.showForAll(page, size));
     }
 }
