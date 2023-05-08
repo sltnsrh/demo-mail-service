@@ -17,16 +17,16 @@ public class MailController {
     private final CronJobScheduler cronJobScheduler;
 
     @PostMapping
-    @RequestMapping("/send/user/{userId}")
-    public ResponseEntity<Void> sendByUserId(@PathVariable Integer userId) {
+    @RequestMapping("/users/{userId}/send")
+    public ResponseEntity<Void> sendRestEmailToUserById(@PathVariable Integer userId) {
         mailingService.sendRestEmailToUserById(userId);
 
         return ResponseEntity.ok().build();
     }
 
     @PostMapping
-    @RequestMapping("/setup/cron/{cronId}")
-    public ResponseEntity<Void> setCronJob(@PathVariable Integer cronId) {
+    @RequestMapping("/crons/{cronId}/schedule")
+    public ResponseEntity<Void> scheduleMailJobByCronId(@PathVariable Integer cronId) {
         cronJobScheduler.scheduleMailJob(cronId);
 
         return ResponseEntity.ok().build();
