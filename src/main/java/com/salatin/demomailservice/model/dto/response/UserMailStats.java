@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UserMailStatistics {
+public class UserMailStats {
     private String username;
     private String email;
     private Count count;

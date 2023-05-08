@@ -8,8 +8,9 @@ public class MailingStatistics {
 
     public UserMailStatistics showByAllUsers() {
 
-        UserMailStatistics.Count count = new UserMailStatistics.Count(1, 1);
 
+
+        UserMailStatistics.Count count = new UserMailStatistics.Count(1, 1);
         UserMailStatistics userMailStatistics = new UserMailStatistics(
             "username", "email", count, "first", "last");
 
