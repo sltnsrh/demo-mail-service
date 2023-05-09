@@ -4,6 +4,7 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.mapping.PropertyReferenceException;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
+    private final static String DATE_FORMAT_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     @ExceptionHandler(value = EntityExistsException.class)
     public ResponseEntity<ApiExceptionObject> handleConflictException(RuntimeException e) {
@@ -59,7 +61,7 @@ public class ApiExceptionHandler {
         return new ApiExceptionObject(
             message,
             status,
-            LocalDateTime.now().toString()
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN))
         );
     }
 }
