@@ -1,10 +1,10 @@
 package com.salatin.demomailservice.model.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
+import com.salatin.demomailservice.model.dto.validation.ValidCron;
 import lombok.Getter;
 
 @Getter
 public class CronCreateRequestDto {
-    @NotBlank(message = "Cron expression can't be empty")
+    @ValidCron
     private String expression;
 }
