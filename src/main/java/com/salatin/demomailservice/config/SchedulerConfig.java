@@ -9,12 +9,13 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @Configuration
 @EnableScheduling
 public class SchedulerConfig {
+    private static final String THREAD_NAME = "scheduled-task-";
 
     @Bean
     public TaskScheduler taskScheduler() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(Runtime.getRuntime().availableProcessors());
-        scheduler.setThreadNamePrefix("scheduled-task-");
+        scheduler.setThreadNamePrefix(THREAD_NAME);
         scheduler.initialize();
         return scheduler;
     }
