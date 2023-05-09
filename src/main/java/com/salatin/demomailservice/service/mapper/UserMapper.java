@@ -21,6 +21,11 @@ public interface UserMapper extends DateTimeProvider{
     @Mapping(target = "createdOn", ignore = true)
     User toModel(UserUpdateRequestDto requestDto);
 
+    @Mapping(
+        target = "createdOn",
+        source = "createdOn",
+        qualifiedByName = "formatDateTimeToString"
+    )
     UserResponseDto toDto(User user);
 
     default Page<UserResponseDto> toPageDto(Page<User> userPage) {
