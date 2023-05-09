@@ -1,6 +1,5 @@
 package com.salatin.demomailservice.model.dto.response;
 
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 

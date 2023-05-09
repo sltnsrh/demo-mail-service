@@ -21,6 +21,11 @@ public interface CronMapper extends DateTimeProvider {
     @Mapping(target = "createdOn", ignore = true)
     Cron toModel(CronUpdateRequestDto dto);
 
+    @Mapping(
+        target = "createdOn",
+        source = "createdOn",
+        qualifiedByName = "formatDateTimeToString"
+    )
     CronResponseDto toDto(Cron cron);
 
     default Page<CronResponseDto> toPageDto(Page<Cron> cronPage) {
