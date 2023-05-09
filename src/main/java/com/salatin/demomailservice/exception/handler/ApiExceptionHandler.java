@@ -10,6 +10,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.SchedulingException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -52,6 +53,13 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = EntityNotFoundException.class)
     public ResponseEntity<ApiExceptionObject> handleResourceNotFoundException(RuntimeException e) {
         HttpStatus status = HttpStatus.NOT_FOUND;
+
+        return new ResponseEntity<>(getApiExceptionObject(e.getMessage(), status), status);
+    }
+
+    @ExceptionHandler(value = SchedulingException.class)
+    public ResponseEntity<ApiExceptionObject> handleAcceptedException(RuntimeException e) {
+        HttpStatus status = HttpStatus.ACCEPTED;
 
         return new ResponseEntity<>(getApiExceptionObject(e.getMessage(), status), status);
     }
