@@ -1,5 +1,6 @@
 package com.salatin.demomailservice.model.dto.request;
 
+import com.salatin.demomailservice.model.dto.validation.ValidEmail;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
@@ -7,6 +8,6 @@ import lombok.Getter;
 public class UserCreateRequestDto {
     @NotBlank(message = "Username can't be blank")
     private String username;
-    @NotBlank(message = "Email can't be blank")
+    @ValidEmail
     private String email;
 }
