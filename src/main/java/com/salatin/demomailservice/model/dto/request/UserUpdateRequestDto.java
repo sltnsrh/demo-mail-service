@@ -1,5 +1,6 @@
 package com.salatin.demomailservice.model.dto.request;
 
+import com.salatin.demomailservice.model.dto.validation.ValidEmail;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -12,6 +13,6 @@ public class UserUpdateRequestDto {
     private int id;
     @NotBlank(message = "Username can't be blank")
     private String username;
-    @NotBlank(message = "Email can't be blank")
+    @ValidEmail
     private String email;
 }
