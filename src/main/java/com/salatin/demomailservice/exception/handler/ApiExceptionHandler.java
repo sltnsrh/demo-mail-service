@@ -1,5 +1,6 @@
 package com.salatin.demomailservice.exception.handler;
 
+import jakarta.mail.AuthenticationFailedException;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
@@ -60,6 +61,13 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = SchedulingException.class)
     public ResponseEntity<ApiExceptionObject> handleAcceptedException(RuntimeException e) {
         HttpStatus status = HttpStatus.ACCEPTED;
+
+        return new ResponseEntity<>(getApiExceptionObject(e.getMessage(), status), status);
+    }
+
+    @ExceptionHandler(value = AuthenticationFailedException.class)
+    public ResponseEntity<ApiExceptionObject> handleUnauthorizedException(RuntimeException e) {
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
 
         return new ResponseEntity<>(getApiExceptionObject(e.getMessage(), status), status);
     }
