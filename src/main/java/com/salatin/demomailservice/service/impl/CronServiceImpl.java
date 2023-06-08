@@ -50,7 +50,7 @@ public class CronServiceImpl implements CronService {
 
     @Override
     public Cron update(Cron cron) {
-        var cronToUpdate = findById(cron.getId());
+        var cronToUpdate = this.findById(cron.getId());
 
         cronToUpdate.setExpression(cron.getExpression());
 
@@ -59,7 +59,7 @@ public class CronServiceImpl implements CronService {
 
     @Override
     public void delete(Integer id) {
-        var cron = findById(id);
+        var cron = this.findById(id);
 
         cronRepository.delete(cron);
     }
