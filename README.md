@@ -3,21 +3,22 @@
 
 Running from CLI:
 * Clone the Git repository to your local and move into the directory
-* Export variables with your Gmail credentials: 
-  * `export EMAIL=<your_email>`
-  * `export PASSWORD=<your_app_password_for_google>`
+* In [application.properties](src/main/resources/application.properties) set your gmail credentials: 
+  * `spring.mail.username=<your_gmail_address>`
+  * `spring.mail.password=<your_app_password_for_google>`
 * Run the application: `mvn spring-boot:run`
 
-Running from IDE:
-* Clone the Git repository to your local
-* Open project in IDE
-* Add environment variables to a run configuration:
-  * `EMAIL=<your_email>`
-  * `PASSWORD=<your_app_password_for_google>`
-* Run the app
+Running from Docker container:
+* Clone repository to your local and move into
+* Go into the [docker-compose.yml](docker-compose.yml) and set your gmail credentials variables:
+  * `spring.mail.username=<your_gmail_address>`
+  * `spring.mail.password=<your_app_password_for_google>`
+* After changing run: `docker-compose up` command to start a Docker container on local port 8080
+
+Also, if remote Docker image is unavailable, you can build it yourself with command: `docker build -t <your-image-name> .`
+Then in docker-compose.yml change image name to your provided <your-image-name>.
 
 If you don't use Gmail, you need to change other mail properties in [application.properties](src/main/resources/application.properties).
-
 
 Postman collection file is in a project directory: [demo-mail-service.postman_collection.json](demo-mail-service.postman_collection.json) <br />
 
