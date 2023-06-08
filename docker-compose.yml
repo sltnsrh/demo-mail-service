@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    image: srhsltn/mail-service
+    build: ./
+    container_name: mail-service
+    ports:
+      - "8080:8080"
+    environment:
+      spring.mail.username: ########
+      spring.mail.password: ########
+      spring.h2.console.settings.web-allow-others: true

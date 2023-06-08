@@ -15,8 +15,10 @@ Running from Docker container:
   * `spring.mail.password=<your_app_password_for_google>`
 * After changing run: `docker-compose up` command to start a Docker container on local port 8080
 
-Also, if remote Docker image is unavailable, you can build it yourself with command: `docker build -t <your-image-name> .`
-Then in docker-compose.yml change image name to your provided <your-image-name>.
+Also, if remote Docker image `srhsltn/mail-service` is unavailable, you can build it yourself:
+* Run: `mvn package` to build .jar file
+* Run: `docker build -t <your-image-name> .`
+Then in docker-compose.yml change image name to provided during the build <your-image-name>.
 
 If you don't use Gmail, you need to change other mail properties in [application.properties](src/main/resources/application.properties).
 
