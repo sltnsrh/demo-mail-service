@@ -20,7 +20,7 @@ class GmailSenderServiceImplTest {
     private JavaMailSender javaMailSender;
 
     @Test
-    void sendWhenValidDataThenSendMethodInvoke() {
+    void send_WhenValidData_ThenSendsMethodInvoke() {
         doNothing().when(javaMailSender).send(any(SimpleMailMessage.class));
 
         gmailSenderService.send("to", "subject", "body");

@@ -20,10 +20,10 @@ class LogServiceImplTest {
     private LogRepository logRepository;
 
     @Test
-    void saveWhenValidDataThenReturnSavedLog() {
+    void save_WhenValidData_ThenReturnsSavedLog() {
         var log = new Log();
-
         when(logRepository.save(log)).thenReturn(log);
+
         assertNotNull(logService.save(log));
         verify(logRepository).save(log);
     }

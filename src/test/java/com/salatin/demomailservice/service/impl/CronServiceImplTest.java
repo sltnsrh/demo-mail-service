@@ -41,47 +41,50 @@ class CronServiceImplTest {
     }
 
     @Test
-    void saveWhenValidDataThenReturnSavedCron() {
+    void save_WhenValidData_ThenReturnsSavedCron() {
         when(cronRepository.save(cron)).thenReturn(cron);
+
         assertNotNull(cronService.save(cron));
         verify(cronRepository).save(cron);
     }
 
     @Test
-    void saveWhenInvalidDataThenThrowEntityExistsException() {
+    void save_WhenInvalidData_ThenThrowsEntityExistsException() {
         when(cronRepository.save(cron)).thenThrow(DataIntegrityViolationException.class);
+
         assertThrows(EntityExistsException.class, () -> cronService.save(cron));
         verify(cronRepository).save(cron);
     }
 
     @Test
-    void findByIdWhenValidIdThenReturnCron() {
+    void findById_WhenValidId_ThenReturnsCron() {
         when(cronRepository.findById(CRON_ID)).thenReturn(Optional.of(cron));
+
         assertNotNull(cronService.findById(CRON_ID));
         verify(cronRepository).findById(CRON_ID);
     }
 
     @Test
-    void findByIdWhenInvalidIdThenThrowEntityNotFoundException() {
+    void findById_WhenInvalidId_ThenThrowsEntityNotFoundException() {
         when(cronRepository.findById(CRON_ID)).thenReturn(Optional.empty());
+
         assertThrows(EntityNotFoundException.class, () -> cronService.findById(CRON_ID));
         verify(cronRepository).findById(CRON_ID);
     }
 
     @Test
-    void findAllWhenValidRequestThenReturnPage() {
+    void findAll_WhenValidRequest_ThenReturnsPage() {
         PageRequest pageRequest = PageRequest.of(0, 10);
-
         when(cronRepository.findAll(pageRequest)).thenReturn(Page.empty());
+
         assertNotNull(cronService.findAll(pageRequest));
         verify(cronRepository).findAll(pageRequest);
     }
 
     @Test
-    void updateWhenValidRequestThenReturnCron() {
+    void update_WhenValidRequest_ThenReturnsCron() {
         cron.setExpression("*****");
         cron.setId(CRON_ID);
-
         doReturn(cron).when(cronService).findById(CRON_ID);
         doReturn(cron).when(cronService).save(cron);
 
@@ -91,9 +94,11 @@ class CronServiceImplTest {
     }
 
     @Test
-    void deleteWhenValidIdThenOk() {
+    void delete_WhenValidId_ThenOk() {
         doReturn(cron).when(cronService).findById(CRON_ID);
+
         cronService.delete(CRON_ID);
+
         verify(cronRepository, times(1)).delete(cron);
     }
 }
