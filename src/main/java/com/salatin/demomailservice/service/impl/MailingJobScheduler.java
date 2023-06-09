@@ -7,6 +7,7 @@ import com.salatin.demomailservice.service.UserService;
 import java.util.TimeZone;
 import java.util.concurrent.ScheduledFuture;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.scheduling.SchedulingException;
 import org.springframework.scheduling.TaskScheduler;
@@ -21,6 +22,7 @@ public class MailingJobScheduler implements Scheduler {
     private final TaskScheduler taskScheduler;
     private final UserService userService;
     private final MailingService mailingService;
+    @Setter
     private ScheduledFuture<?> scheduledTask;
 
     @Override
