@@ -70,6 +70,8 @@ class MailingJobSchedulerTest {
 
     @Test
     void stop_WhenScheduledTaskIsNull_ThrowsSchedulingException() {
+        mailingJobScheduler.setScheduledTask(null);
+
         assertThrows(SchedulingException.class, mailingJobScheduler::stop);
     }
 
