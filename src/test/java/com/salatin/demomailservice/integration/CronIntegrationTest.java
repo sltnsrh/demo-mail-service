@@ -7,35 +7,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.salatin.demomailservice.model.dto.request.CronCreateRequestDto;
 import com.salatin.demomailservice.model.dto.request.CronUpdateRequestDto;
 import com.salatin.demomailservice.model.dto.response.CronResponseDto;
-import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-@SpringBootTest
-@AutoConfigureTestDatabase
-@RequiredArgsConstructor
-public class CronIntegrationTest {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-
-    private final WebApplicationContext webApplicationContext;
-
-    private MockMvc mockMvc;
-
-    @BeforeEach
-    void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
+public class CronIntegrationTest extends IntegrationTest {
 
     @Test
     @Sql(value = "/delete_cron.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
