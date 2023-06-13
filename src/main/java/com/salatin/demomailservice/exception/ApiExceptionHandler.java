@@ -1,4 +1,4 @@
-package com.salatin.demomailservice.exception.handler;
+package com.salatin.demomailservice.exception;
 
 import jakarta.mail.AuthenticationFailedException;
 import jakarta.persistence.EntityExistsException;
