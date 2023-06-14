@@ -140,7 +140,19 @@ public class UserIntegrationTest extends IntegrationTest {
     }
 
     @Test
-    void showStats_WhenValidRequest_ThenReturnsStatusOk() throws Exception {
+    @Sql(value = {"/create_first_user.sql", "/create_log_for_first_user.sql"},
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = {"/delete_all_logs.sql", "/delete_all_users.sql"},
+            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    void showStats_WhenOneLogExists_ThenReturnsStatusOk() throws Exception {
+        mockMvc.perform(get("/users/stats"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Sql(value = "/create_first_user.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "/delete_all_users.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    void showStats_WhenEmptyStatistics_ThenReturnsStatusOk() throws Exception {
         mockMvc.perform(get("/users/stats"))
                 .andExpect(status().isOk());
     }
