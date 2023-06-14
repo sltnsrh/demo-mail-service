@@ -43,11 +43,13 @@ public class MailingJobScheduler implements Scheduler {
         if (scheduledTask != null) {
             boolean canceled = scheduledTask.cancel(true);
             if (!canceled) {
+                log.warn("Can't stop scheduled task, because it was already stopped");
                 throw new SchedulingException("Scheduler was already stopped");
             } else {
                 log.info("Mailing job was successfully stopped");
             }
         } else {
+            log.warn("Can't stop scheduled task, because it wasn't created yet");
             throw new SchedulingException("Can't stop scheduler, because it wasn't started yet");
         }
     }
