@@ -17,7 +17,7 @@ import org.springframework.test.context.jdbc.Sql;
 public class CronIntegrationTest extends IntegrationTest {
 
     @Test
-    @Sql(value = "/delete_cron.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    @Sql(value = "/delete_all_crons.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     void create_WhenValidRequest_ThenReturnsIsCreated () throws Exception {
         var requestDto = new CronCreateRequestDto("* * * * * *");
 
@@ -38,8 +38,8 @@ public class CronIntegrationTest extends IntegrationTest {
     }
 
     @Test
-    @Sql(value = "/create_cron.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "/delete_cron.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    @Sql(value = "/create_first_cron.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "/delete_all_crons.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     void create_WhenExpressionExists_ThenReturnsConflict () throws Exception {
         var requestDto = new CronCreateRequestDto("* * * * * *");
 
@@ -50,7 +50,7 @@ public class CronIntegrationTest extends IntegrationTest {
     }
 
     @Test
-    @Sql(value = "/create_cron.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "/create_first_cron.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(value = "/delete_updated_cron.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     void update_WhenValidRequest_ThenExpressionUpdated() throws Exception {
         var requestDto = new CronUpdateRequestDto(1, "*/1 * * * * *");
@@ -87,7 +87,7 @@ public class CronIntegrationTest extends IntegrationTest {
     }
 
     @Test
-    @Sql(value = "/create_cron.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "/create_first_cron.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void delete_WhenValidId_ThenReturnsNoContent() throws Exception {
         mockMvc.perform(delete("/crons/1"))
                 .andExpect(status().isNoContent());
